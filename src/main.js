@@ -2,10 +2,7 @@ import { RenderCommands } from './renderCommands.js'
 import { Client, GatewayIntentBits, Events, ActivityType } from 'discord.js';
 import {config} from 'dotenv';
 import { connectToDB } from './db/database.js';
-import responese from './responses/responses.json' with { type: "json" }
 config()
-
-console.log(responese)
 
 const token = process.env.TOKEN
 const dbUri = process.env.DB_URI
@@ -60,14 +57,7 @@ async function main() {
 	});
 
 	client.on('messageCreate', msg => {
-		if (msg.author.id !== client.user.id) {
-			for (let i = 0; i < responese.length; i++) {
-				if (msg.content.toLocaleLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '') === responese[i][0]) {
-					msg.reply(responese[i][1])
-					break
-				}
-			}
-		}
+		if ((msg.content === 'hru' || msg.content === 'good hbu') && msg.author.id !== client.user.id) msg.reply("good hbu")
 	})
 
 	client.on('ready', async bot => {
@@ -81,6 +71,8 @@ async function main() {
 	})
 }
 
+await RenderCommands(client, token, process.env.GUILD_ID, process.env.BOT_ID)
+
 console.log("Attempting to connect to DB")
 
 if (!dbUri) {
@@ -90,8 +82,6 @@ if (!dbUri) {
 } else {
 	await connectToDB(dbUri)
 }
-
-await RenderCommands(client, token, process.env.GUILD_ID, process.env.BOT_ID)
 
 client.login(token);
 
