@@ -32,6 +32,10 @@ export async function execute(interaction) {
     }
 
     const bet = interaction.options.getInteger("bet", true)
+    if (bet < 1) {
+        interaction.reply({ content: "Invalid bet amount", ephemeral: true })
+        return
+    }
     const account = await getUser(interaction.user.id)
 
     if (account.balance < bet) {

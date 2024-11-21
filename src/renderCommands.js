@@ -13,6 +13,7 @@ const rscan = (path) =>
     );
 
 export async function RenderCommands(client, token, guildId, botId) {
+
     client.commands = new Collection();
 
     const filePaths = rscan(join(__dirname, 'commands')).filter(v => v.endsWith('js'));

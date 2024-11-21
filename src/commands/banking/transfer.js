@@ -22,6 +22,12 @@ export async function execute(interaction) {
         console.log("Null transaction", amount, member, interaction)
         return
     }
+
+    if (amount < 1) {
+        TransationFailed("Invalid transfer amount")
+        return
+    }
+
     const response = await interaction.reply("\u2800")
     
     const payee = await getUser(member.user.id)

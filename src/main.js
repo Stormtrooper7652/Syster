@@ -30,7 +30,7 @@ async function main() {
 			}
 
 			try {
-				await command.execute(interaction);
+				await command.execute(interaction, client);
 			} catch (error) {
 				console.error(error);
 				if (interaction.replied || interaction.deferred) {
@@ -57,7 +57,8 @@ async function main() {
 	});
 
 	client.on('messageCreate', msg => {
-		if ((msg.content === 'hru' || msg.content === 'good hbu') && msg.author.id !== client.user.id) msg.reply("good hbu")
+		const message = msg.content.toLocaleLowerCase()
+		if ((message=== 'hru' || message === 'good hbu') && msg.author.id !== client.user.id) msg.reply((Math.random() < 0.01)? "good hbu" : "better hbu")
 	})
 
 	client.on('ready', async bot => {

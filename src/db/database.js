@@ -33,3 +33,7 @@ export async function getUser(id) {
     if (query.length !== 1) return null
     return query[0]
 }
+
+export async function getUsers() {
+    return await Users.find({})
+}
