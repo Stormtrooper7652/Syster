@@ -5,15 +5,16 @@ const Delay = 1000 // ms
 export const data = new SlashCommandBuilder()
 	.setName('coinflip')
 	.setDescription(`Flip a coin`)
-   .addStringOption(option => option
-     .setName('side')
-     .setDescription('the side you want to bet on')
-     .addChoices(
-        { name: 'Heads', value: 'heads' },
-        { name: 'Tails', value: 'tails' },
-    ))
-    .addIntegerOption(op => 
-        op.setName('bet')
+    .addStringOption(op => op
+        .setName('side')
+        .setDescription('heads or tails?')
+        .addChoices([
+            { name: 'Heads', value: 'heads' },
+            { name: 'Tails', value: 'tails' },
+        ])
+        .setRequired(true))
+    .addIntegerOption(op => op
+        .setName('bet')
         .setDescription('Amount of money you are betting')
         .setRequired(true))
 /*
@@ -21,8 +22,6 @@ export const data = new SlashCommandBuilder()
         op.setName('Play against')
         .setDescription('Amount of money you are betting'))
 */
-
-/** @param {ChatInputCommandInteraction<CacheType>} interaction  */
 
 /** @param {ChatInputCommandInteraction<CacheType>} interaction  */
 export async function execute(interaction) {
