@@ -5,11 +5,13 @@ const Delay = 1000 // ms
 export const data = new SlashCommandBuilder()
 	.setName('coinflip')
 	.setDescription(`Flip a coin`)
-    .addStringOption(op => 
-        op.setName('side')
-        .setDescription('heads or tails?')
-        .setAutocomplete(true)
-        .setRequired(true))
+   .addStringOption(option => option
+     .setName('side')
+     .setDescription('the side you want to bet on')
+     .addChoices(
+        { name: 'Heads', value: 'heads' },
+        { name: 'Tails', value: 'tails' },
+    )),
     .addIntegerOption(op => 
         op.setName('bet')
         .setDescription('Amount of money you are betting')
@@ -21,14 +23,6 @@ export const data = new SlashCommandBuilder()
 */
 
 /** @param {ChatInputCommandInteraction<CacheType>} interaction  */
-export async function autocomplete(interaction) {
-    const focusedValue = interaction.options.getString('side');
-    const choices = ['heads', 'tails'];
-    const filtered = choices.filter(choice => choice.startsWith(focusedValue));
-    await interaction.respond(
-        filtered.map(choice => ({ name: choice, value: choice })),
-    );
-}
 
 /** @param {ChatInputCommandInteraction<CacheType>} interaction  */
 export async function execute(interaction) {
