@@ -3,7 +3,7 @@ import { LeaderBoardPage } from '../../embeds/leaderboard.js';
 import { getUsers } from '../../db/database.js';
 
 export const data = new SlashCommandBuilder()
-    .setName('top')
+    .setName('baltop')
 	.setDescription('Get top three players');
     
 /** 

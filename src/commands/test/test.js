@@ -1,5 +1,6 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 import res from './response.json' with { type: 'json' }
+import { getSortedUsers } from '../../db/database.js';
 
 export const data = new SlashCommandBuilder()
     .setName('poke')
@@ -7,11 +8,7 @@ export const data = new SlashCommandBuilder()
 
     /** @param {ChatInputCommandInteraction<CacheType>} interaction  */
 export async function execute(interaction) {
-    if ([
-        "938869793103151196",
-        "932164235654479913",
-        "406487515751514112"
-    ].indexOf(interaction.user.id) < 0) {
+    if ((await getSortedUsers())[0].uid !== interaction.user.id) {
         let invalid = res['invalid']
         interaction.reply(invalid[Math.floor(Math.random() * invalid.length)])
         return

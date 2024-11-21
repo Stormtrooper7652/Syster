@@ -37,3 +37,7 @@ export async function getUser(id) {
 export async function getUsers() {
     return await Users.find({})
 }
+
+export async function getSortedUsers() {
+    return (await getUsers()).sort((a, b) => b.balance - a.balance)
+}
