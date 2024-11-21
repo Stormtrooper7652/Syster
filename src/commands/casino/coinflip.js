@@ -11,7 +11,7 @@ export const data = new SlashCommandBuilder()
      .addChoices(
         { name: 'Heads', value: 'heads' },
         { name: 'Tails', value: 'tails' },
-    )),
+    ))
     .addIntegerOption(op => 
         op.setName('bet')
         .setDescription('Amount of money you are betting')
