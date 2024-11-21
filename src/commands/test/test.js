@@ -2,8 +2,8 @@ import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
 import res from './response.json' with { type: 'json' }
 
 export const data = new SlashCommandBuilder()
-    .setName('test')
-	.setDescription('Rawr');
+    .setName('poke')
+	.setDescription('Grr');
 
     /** @param {ChatInputCommandInteraction<CacheType>} interaction  */
 export async function execute(interaction) {

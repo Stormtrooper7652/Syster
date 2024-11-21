@@ -1,5 +1,5 @@
-import { SlashCommandBuilder, ChatInputCommandInteraction, IntegrationApplication, basename, ApplicationCommandOptionType } from 'discord.js';
-import { createUser, getUser } from '../../db/database.js';
+import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
+import { getUser } from '../../db/database.js';
 
 export const data = new SlashCommandBuilder()
 	.setName('transfer')
