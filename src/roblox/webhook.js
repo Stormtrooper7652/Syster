@@ -1,29 +1,26 @@
-import { createServer, Server } from "https";
+import { createServer, Server } from "http";
 import { readFileSync } from "fs";
 import express from "express";
 const __dirname = import.meta.dirname
 /** @type {Server} server */
 export var server = undefined
 
+
 export async function initWebhook(port) {
     const app = express();
 
-    app.post("/msg", function (req, res) {
+    app.get("/webhook", async (req, res) => {
+        const query = req.query;
+        console.log(query);
 
-        console.log(req.body);
-    
-        res.statusCode = 69
-    });
-    const options = {
-        key: readFileSync(__dirname + "/../../ssl/server.key"),
-        cert: readFileSync(__dirname + "/../../ssl/server.cert"),
-    };    
-    server = createServer(options, app)
-
-    server.listen(port, (req, res) => {
-        console.log("Webhook server open on port " + port);
+        res.sendStatus(200);
     });
 
-    await new Promise(res => server.on('listening', res))
+    const server = createServer(app);
+
+    server.listen(port, 'localhost', () => {
+        console.log(`Server listening on http://localhost:${port}`);
+    });
+
+    await new Promise((resolve) => server.on('listening', resolve));
 }
-

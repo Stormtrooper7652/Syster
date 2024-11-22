@@ -132,3 +132,5 @@ dist
 # ssl certificates
 ssl/server.cert
 ssl/server.key
+
+tests/

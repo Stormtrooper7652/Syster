@@ -72,20 +72,22 @@ async function main() {
 	})
 }
 
-const webhookServer = await initWebhook(7652)
+(async () => {
+	await RenderCommands(client, token, process.env.GUILD_ID, process.env.BOT_ID)
+	
+	console.log("Attempting to connect to DB")
+	
+	if (!dbUri) {
+		console.log("No database url detected")
+		console.log(dbUri)
+		process.exit()
+	} else {
+		await connectToDB(dbUri)
+	}
+	
+	const webhookServer = await initWebhook(7652, process.env.IP)
+	
+	client.login(token);
 
-await RenderCommands(client, token, process.env.GUILD_ID, process.env.BOT_ID)
-
-console.log("Attempting to connect to DB")
-
-if (!dbUri) {
-	console.log("No database url detected")
-	console.log(dbUri)
-	process.exit()
-} else {
-	await connectToDB(dbUri)
-}
-
-client.login(token);
-
-main()
+	main()
+})()
