@@ -1,6 +1,7 @@
 import { RenderCommands } from './renderCommands.js'
 import { Client, GatewayIntentBits, Events, ActivityType } from 'discord.js';
 import { connectToDB } from './db/database.js';
+import { initWebhook } from './roblox/webhook.js';
 (await import('dotenv')).config()
 
 const token = process.env.TOKEN
@@ -71,18 +72,22 @@ async function main() {
 	})
 }
 
-await RenderCommands(client, token, process.env.GUILD_ID, process.env.BOT_ID)
+(async () => {
+	await RenderCommands(client, token, process.env.GUILD_ID, process.env.BOT_ID)
+	
+	console.log("Attempting to connect to DB")
+	
+	if (!dbUri) {
+		console.log("No database url detected")
+		console.log(dbUri)
+		process.exit()
+	} else {
+		await connectToDB(dbUri)
+	}
+	
+	await initWebhook(process.env.WEBHOOK_KEY, 7652, process.env.IP)
+	
+	client.login(token);
 
-console.log("Attempting to connect to DB")
-
-if (!dbUri) {
-	console.log("No database url detected")
-	console.log(dbUri)
-	process.exit()
-} else {
-	await connectToDB(dbUri)
-}
-
-client.login(token);
-
-main()
+	main()
+})()
