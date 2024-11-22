@@ -30,7 +30,7 @@ export async function RenderCommands(client, token, guildId, botId) {
     }
 
     const data = await rest.put(
-        Routes.applicationGuildCommands(botId, guildId),
+        Routes.applicationCommands(botId),
         { body: Array.from(client.commands.values()).map(cmd => cmd.data.toJSON()) },
     );
 
