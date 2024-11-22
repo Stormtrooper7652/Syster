@@ -25,17 +25,19 @@ export const data = new SlashCommandBuilder()
 
 /** @param {ChatInputCommandInteraction<CacheType>} interaction  */
 export async function execute(interaction) {
+    const bet = interaction.options.getInteger("bet", true)
     const side = interaction.options.getString("side", true)
+    
     if (!(side === 'heads' || side === 'tails')) {
         interaction.reply({ content: "Please select heads or tails.", ephemeral: true })
         return
     }
 
-    const bet = interaction.options.getInteger("bet", true)
     if (bet < 1) {
         interaction.reply({ content: "Invalid bet amount", ephemeral: true })
         return
     }
+
     const account = await getUser(interaction.user.id)
 
     if (account.balance < bet) {

@@ -3,7 +3,7 @@ import { createUser, getUser } from '../../db/database.js';
 import { BankPage } from '../../embeds/bank.js';
 
 export const data = new SlashCommandBuilder()
-	.setName('bal')
+	.setName('balance')
 	.setDescription(`Returns the player's balance`)
 	
 /** @param {ChatInputCommandInteraction<CacheType>} interaction  */

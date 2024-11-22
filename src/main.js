@@ -1,8 +1,7 @@
 import { RenderCommands } from './renderCommands.js'
 import { Client, GatewayIntentBits, Events, ActivityType } from 'discord.js';
-import {config} from 'dotenv';
 import { connectToDB } from './db/database.js';
-config()
+(await import('dotenv')).config()
 
 const token = process.env.TOKEN
 const dbUri = process.env.DB_URI
@@ -56,7 +55,7 @@ async function main() {
 		}
 	});
 
-	client.on('messageCreate', msg => {
+	client.on('messageCreate', async msg => {
 		const message = msg.content.toLocaleLowerCase()
 		if ((message=== 'hru' || message === 'good hbu') && msg.author.id !== client.user.id) msg.reply((Math.random() < 0.01)? "good hbu" : "better hbu")
 	})
