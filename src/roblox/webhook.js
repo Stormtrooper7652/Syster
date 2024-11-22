@@ -1,6 +1,6 @@
 import { createServer, IncomingMessage, Server, ServerResponse } from "http";
 import express from "express";
-import { getUser } from "../db/database";
+import { getUser } from "../db/database.js";
 
 /** @type {Server<IncomingMessage, ServerResponse>} server */
 export var server = undefined
@@ -26,6 +26,7 @@ export async function initWebhook(key, port, ip) {
         }
 
         const amount = query.amount
+        console.log(amount)
         if (!isNaN(amount)) {
             console.warn(`Invalid request amount [${req.headers.host}]`)
             return 400
