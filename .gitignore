@@ -128,9 +128,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-# ssl certificates
-ssl/server.cert
-ssl/server.key
-
-tests/
