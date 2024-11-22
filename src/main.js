@@ -1,6 +1,7 @@
 import { RenderCommands } from './renderCommands.js'
 import { Client, GatewayIntentBits, Events, ActivityType } from 'discord.js';
 import { connectToDB } from './db/database.js';
+import { initWebhook } from './roblox/webhook.js';
 (await import('dotenv')).config()
 
 const token = process.env.TOKEN
@@ -70,6 +71,8 @@ async function main() {
 		})
 	})
 }
+
+const webhookServer = await initWebhook(7652)
 
 await RenderCommands(client, token, process.env.GUILD_ID, process.env.BOT_ID)
 
