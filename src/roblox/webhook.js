@@ -1,25 +1,46 @@
-import { createServer, Server } from "http";
-import { readFileSync } from "fs";
+import { createServer, IncomingMessage, Server, ServerResponse } from "http";
 import express from "express";
-const __dirname = import.meta.dirname
-/** @type {Server} server */
+import { getUser } from "../db/database";
+
+/** @type {Server<IncomingMessage, ServerResponse>} server */
 export var server = undefined
 
 
-export async function initWebhook(port) {
+export async function initWebhook(key, port, ip) {
+    const adress = ip ?? 'localhost'
     const app = express();
 
-    app.get("/webhook", async (req, res) => {
+    app.get("/webhook", async (req, res) => res.sendStatus(await (async () => {
         const query = req.query;
-        console.log(query);
+        if (query.key !== key) {
+            console.warn(`Invaild request [${req.headers.host}]`)
+            return 403
+        }
 
-        res.sendStatus(200);
-    });
+        const id = query.uid 
+        const user = await getUser(id)
 
-    const server = createServer(app);
+        if (user === null) {
+            console.warn(`Invalid request id [${req.headers.host}]`)
+            return 400
+        }
 
-    server.listen(port, 'localhost', () => {
-        console.log(`Server listening on http://localhost:${port}`);
+        const amount = query.amount
+        if (!isNaN(amount)) {
+            console.warn(`Invalid request amount [${req.headers.host}]`)
+            return 400
+        }
+
+        user.balance += parseInt(amount)
+        user.save()
+
+        return 200
+    })()));
+
+    server = createServer(app);
+
+    server.listen(port, adress, () => {
+        console.log(`Webhook opened on { http://${adress}:${port} }`);
     });
 
     await new Promise((resolve) => server.on('listening', resolve));

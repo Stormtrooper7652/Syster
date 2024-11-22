@@ -85,7 +85,7 @@ async function main() {
 		await connectToDB(dbUri)
 	}
 	
-	const webhookServer = await initWebhook(7652, process.env.IP)
+	await initWebhook(process.env.WEBHOOK_KEY, 7652, process.env.IP)
 	
 	client.login(token);
 
