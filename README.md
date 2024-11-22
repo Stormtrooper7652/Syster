@@ -37,4 +37,7 @@ If you want to contribute, please follow this.
    Use descriptive commit messages that explain the purpose of your changes.  
 
 4. **Follow Coding Standards:**  
-   Maintain consistent formatting and clean, readable code.  
+   Maintain consistent formatting and clean, readable code.
+
+   ## License
+   This project is licensed under the [GNU General Public License v3.0](LICENSE). <3
