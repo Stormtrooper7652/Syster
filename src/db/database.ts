@@ -2,9 +2,9 @@ import pkg from 'mongoose';
 import { Users } from './models.js'
 const { connect } = pkg;
 export var cachedUsers = {}
-export var db;
+export var db: pkg.Mongoose;
 
-export async function connectToDB(url) {
+export async function connectToDB(url: string) {
     db = await connect(url, {
         serverApi: {
             version: '1',
@@ -15,7 +15,7 @@ export async function connectToDB(url) {
     console.log("Connected to DB successfully")
 }
 
-export async function createUser(id, bal) {
+export async function createUser(id: string, bal: undefined | number) {
     const find = await getUser(id)
     if (find !== null) return find
 
@@ -28,7 +28,7 @@ export async function createUser(id, bal) {
     return res
 }
 
-export async function getUser(id) {
+export async function getUser(id: string) {
     let query = await Users.find({ uid: id })
     if (query.length !== 1) return null
     return query[0]

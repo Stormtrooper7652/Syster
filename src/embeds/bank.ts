@@ -6,7 +6,7 @@ const footers = [
     'Brokie^^^'
 ]
 
-export const BankPage = (name, balance) => {
+export function BankPage(name: string, balance: number): EmbedBuilder {
     return new EmbedBuilder()
         .setColor(0xFEC7DC)
         .setTitle(name)
