@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import { forceGetUser, getUser } from '../../db/database.js';
+import { forceGetUser } from '../../db/database.js';
 
 export const data = new SlashCommandBuilder()
 	.setName('transfer')
