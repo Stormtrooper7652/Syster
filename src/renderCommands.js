@@ -13,7 +13,7 @@ const rscan = (path) =>
         extname(v) === '' ? rscan(join(path, v)) : join(path, v)
     );
 
-export async function RenderCommands(client, token, guildId, botId) {
+export async function RenderCommands(client, token, botId) {
 
     client.commands = new Collection();
 
@@ -31,7 +31,7 @@ export async function RenderCommands(client, token, guildId, botId) {
     }
 
     const data = await rest.put(
-        Routes.applicationGuildCommands(botId, guildId),
+        Routes.applicationCommands(botId),
         { body: Array.from(client.commands.values()).map(cmd => cmd.data.toJSON()) },
     );
 

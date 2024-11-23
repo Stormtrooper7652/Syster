@@ -8,10 +8,8 @@ export const data = new SlashCommandBuilder()
 
     /** @param {ChatInputCommandInteraction<CacheType>} interaction  */
 export async function execute(interaction) {
-    if (
-        (await getSortedUsers())[0].uid !== interaction.user.id &&
-        !interaction.guild.members.cache.get(interaction.user.id).roles.cache.has('1308100766296309911') // awfu
-    ) {
+    if (!interaction.inGuild()) return await interaction.reply({  content: "You can only run this command in a server.", ephemeral: true});
+    if ((await getSortedUsers())[0].uid !== interaction.user.id ) {
         let invalid = res['invalid']
         interaction.reply(invalid[Math.floor(Math.random() * invalid.length)])
         return

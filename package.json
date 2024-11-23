@@ -1,4 +1,8 @@
-{
+{  
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "nodemon src/main.js"
+  },
   "type": "module",
   "dependencies": {
     "body-parser": "^1.20.3",

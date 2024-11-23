@@ -73,7 +73,7 @@ async function main() {
 }
 
 (async () => {
-	await RenderCommands(client, token, process.env.GUILD_ID, process.env.BOT_ID)
+	await RenderCommands(client, token, process.env.BOT_ID)
 	
 	console.log("Attempting to connect to DB")
 	
