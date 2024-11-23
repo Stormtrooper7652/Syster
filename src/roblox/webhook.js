@@ -37,7 +37,7 @@ export async function initWebhook(client, key, port, ip) {
         user.save()
 
         const discordUser = await client.users.fetch(id)
-        discordUser.send(id, `Thank you **${discordUser.globalName}** for purchasing **${amount}** Coins!\nWe appreciate your commitment to our community! `)
+        discordUser.send(id, `Thank you **${discordUser}** for purchasing **${amount}** Coins!\nWe appreciate your commitment to our community! `)
 
         return 200
     })()));
