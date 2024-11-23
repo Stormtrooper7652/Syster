@@ -28,6 +28,14 @@ export async function createUser(id, bal) {
     return res
 }
 
+export async function forceGetUser(id) {
+    let query = await Users.find({ uid: id })
+    if (query.length !== 1) {
+        return await createUser(id)
+    }
+    return query[0]
+}
+
 export async function getUser(id) {
     let query = await Users.find({ uid: id })
     if (query.length !== 1) return null
