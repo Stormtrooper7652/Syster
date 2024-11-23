@@ -22,14 +22,14 @@ export async function execute(interaction) {
         return
     }
 
+    const response = await interaction.reply("\u2800")
+    const TransationFailed = (reason) => response.edit({ content:`> *Transaction* **Failed**\n> ${reason}\n> If you think this is an issue with our bot please create a ticket.`, ephemeral:true })
+    
     if (amount < 1) {
         TransationFailed("Invalid transfer amount")
         return
     }
 
-    const response = await interaction.reply("\u2800")
-    const TransationFailed = (reason) => response.edit({ content:`> *Transaction* **Failed**\n> ${reason}\n> If you think this is an issue with our bot please create a ticket.`, ephemeral:true })
-    
     const payee = await forceGetUser(member.user.id)
     const payer = await forceGetUser(interaction.user.id)
 
