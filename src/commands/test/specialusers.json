@@ -1,8 +1,14 @@
 [
     {
+        "_comment": "Shiro's UserID"
+        "uid": "938869793103151196" 
+    },
+    {
+        "_comment": "Fishy's UserID"
         "uid": "406487515751514112"
     },
     {
-        "uid": "938869793103151196"
-    }
+        "_comment": "Storms's UserID"
+        "uid": "932164235654479913"
+    },
 ]
