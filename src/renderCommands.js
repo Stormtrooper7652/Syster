@@ -3,6 +3,7 @@ import { readdirSync } from 'fs';
 import { join, extname } from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import { pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -20,8 +21,8 @@ export async function RenderCommands(client, token, guildId, botId) {
     const rest = (new REST()).setToken(token);
 
     for (const file of filePaths) {
-        const cmd = await import(file);
-
+        const cmd = await import(pathToFileURL(file).href
+    );
         if ('data' in cmd && 'execute' in cmd) {
             client.commands.set(cmd.data.name, cmd);
         } else {

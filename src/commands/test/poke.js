@@ -1,5 +1,5 @@
 import { SlashCommandBuilder, ChatInputCommandInteraction } from 'discord.js';
-import res from './response.json' with { type: 'json' }
+import res from './response.json' assert { type: 'json' }
 import { getSortedUsers } from '../../db/database.js';
 
 export const data = new SlashCommandBuilder()
