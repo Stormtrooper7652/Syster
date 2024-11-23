@@ -1,3 +1,4 @@
+import { Client } from 'discord.js'
 import { createServer, IncomingMessage, Server, ServerResponse } from "http";
 import express from "express";
 import { getUser } from "../db/database.js";
@@ -5,8 +6,8 @@ import { getUser } from "../db/database.js";
 /** @type {Server<IncomingMessage, ServerResponse>} server */
 export var server = undefined
 
-
-export async function initWebhook(key, port, ip) {
+/** @param {Client<boolean>} client */
+export async function initWebhook(client, key, port, ip) {
     const adress = ip ?? 'localhost'
     const app = express();
 
@@ -26,14 +27,17 @@ export async function initWebhook(key, port, ip) {
         }
 
         const amount = query.amount
-        console.log(amount)
-        if (!isNaN(amount)) {
+        console.log(`${id} -> ${amount}`)
+        if (isNaN(amount)) {
             console.warn(`Invalid request amount [${req.headers.host}]`)
             return 400
         }
 
         user.balance += parseInt(amount)
         user.save()
+
+        const discordUser = await client.users.fetch(id)
+        discordUser.send(id, `Thank you **${discordUser.globalName}** for purchasing **${amount}** Coins!\nWe appreciate your commitment to our community! `)
 
         return 200
     })()));
