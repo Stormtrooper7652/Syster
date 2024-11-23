@@ -1,5 +1,5 @@
 import pkg from 'mongoose';
-const { connect, connection, disconnect, model, Schema } = pkg;
+const { model, Schema } = pkg;
 import {config} from 'dotenv'; config()
 
 const userSchema = new Schema({
@@ -10,7 +10,25 @@ const userSchema = new Schema({
     balance: {
         type: Number,
         default: 0
-    }
+    },
+    deptors: [
+        {
+            uid: String,
+            original: Number,
+            amount: Number,
+            payby: Date,
+            interest: Number
+        }
+    ],
+    creditors: [
+        {
+            uid: String,
+            original: Number,
+            amount: Number,
+            payby: Date,
+            interest: Number
+        }
+    ]
 }, { timestamps: true })
 
 export const Users = model('Users', userSchema)
