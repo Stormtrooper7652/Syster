@@ -2,6 +2,8 @@ import { RenderCommands } from './renderCommands.js'
 import { Client, GatewayIntentBits, Events, ActivityType } from 'discord.js';
 import { connectToDB } from './db/database.js';
 import { initWebhook } from './roblox/webhook.js';
+import { lastCycle, processCycle } from './cycle.js';
+import { getDay } from './utility.js';
 (await import('dotenv')).config()
 
 const token = process.env.TOKEN
@@ -20,6 +22,13 @@ const client = new Client({
 
 async function main() {
 	client.on(Events.InteractionCreate, async interaction => {
+		// check for updates
+		const day = getDay() 
+		if (day > lastCycle) {
+			processCycle(client)
+			lastCycle = day
+		}
+
 		if (interaction.isChatInputCommand()){
 			// command handling
 			const command = interaction.client.commands.get(interaction.commandName);
@@ -30,7 +39,7 @@ async function main() {
 			}
 
 			try {
-				await command.execute(interaction, client);
+				await command.execute(interaction, client, process.env);
 			} catch (error) {
 				console.error(error);
 				if (interaction.replied || interaction.deferred) {
@@ -72,7 +81,10 @@ async function main() {
 	})
 }
 
+
 (async () => {
+	lastCycle = getDay()
+
 	await RenderCommands(client, token, process.env.BOT_ID)
 	
 	console.log("Attempting to connect to DB")
